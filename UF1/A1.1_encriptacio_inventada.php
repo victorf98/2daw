@@ -6,74 +6,70 @@
 <body>
     <?php
     
-        function encriptacio($text, $ip){
-            $text = iconv("UTF-8", "ASCII//TRANSLIT", $text);
-            $ip_bin = decbin(sumar_caracters($ip));
-            $sum = sumar_digits($ip_bin);
+        function encriptacio($text){
+            $text = base64_encode($text);
+            /*Amb la funcio transformar text ho passem a base62 ja que 
+            els simbols els passem a lletres i numeros, deixant un resultat alfanumèric*/
+            $result = transformar_text($text);
 
-            return transformar_text($text, $sum);
+            return $result;
         }
 
-        function decriptacio($text, $ip){
-            $ip_bin = decbin(sumar_caracters($ip));
-            $sum = sumar_digits($ip_bin);
-
-            return desfer_codi($text, $sum);
+        function decriptacio($text){
+            $final = desfer_codi($text);
+            return base64_decode($final);
+            
         }
 
-        function transformar_text($text, $sum){
+        function transformar_text($text){
             $final_text = "";
             foreach (str_split($text) as $char) {
                 //Si el caràcter es minúscula
                 if (ord($char) >= 97 and ord($char) <= 122) {
-                    if (ord(strtoupper($char)) + $sum > ord("Z")) {
-                        $final_text .= chr(ord("A") + (ord(strtoupper($char)) + $sum) - ord(strtoupper($char)));
-                    }else {
-                        $final_text .= chr(ord(strtoupper($char)) + $sum);
-                    }
+                        $final_text .= chr(90 - ord(strtoupper($char)) + 65);
                 //Si el caràcter es majúscula
                 }elseif (ord($char) >= 65 and ord($char) <= 90) {
-                    $final_text .= strval(ord($char));
+                    $final_text .= chr(122 - ord(strtolower($char)) + 97);
                 //Si el caràcter es número
                 }elseif (ord($char) >= 48 and ord($char) <= 57) {
-                    $final_text .= chr(ord("a") + intval($char));
+                    $final_text .= chr(57 - ord(intval($char)) + 48);
                 //Altres
                 }else {
-                    $final_text .= "sp00" . ord($char);
+                    $final_text .= "sp" . ord($char) . "sp";
                 }
+            
             }
-
             return $final_text;
         }
 
-        function desfer_codi($text, $sum){
-            $text_array = str_split($text);
-            for ($i=0; $i < count($text_array); $i++) { 
-                if ($text_array[i]) {
-                    
-                }
-            } 
+        function desfer_codi($text){
+            $array_text = explode("sp", $text);
+            $final_text = "";
+            foreach ($array_text as $chunk) {
+                //Si hi ha un signe codificat
+                if (is_numeric($chunk)) {
+                    $final_text .= chr(intval($chunk));
+                }else{
+                    foreach (str_split($chunk) as $char) {
+                        //Si el caràcter es minúscula
+                        if (ord($char) >= 97 and ord($char) <= 122) {
+                            $final_text .= chr(90 - ord(strtoupper($char)) + 65);
+                        //Si el caràcter es majúscula
+                        }elseif (ord($char) >= 65 and ord($char) <= 90) {
+                            $final_text .= chr(122 - ord(strtolower($char)) + 97);
+                        //Si el caràcter es número
+                        }elseif (ord($char) >= 48 and ord($char) <= 57) {
+                            $final_text .= chr(57 - ord(intval($char)) + 48);
+                        }
+                    }
             
-        }
-
-        function sumar_caracters($text){
-            $suma = 0;
-            foreach (str_split($text) as $caracter) {
-                $suma += ord($caracter);
+                }
             }
-            return $suma;
+            return $final_text;
         }
 
-        function sumar_digits($num){
-            $sum = 0;
-            while ($num != 0) {
-                $sum += $num % 10;
-                $num = intdiv($ip_bin, 10);
-            }
-            return $sum;
-        }
-
-        echo encriptacio("Patata_123zz", $_SERVER['REMOTE_ADDR']);
+        echo encriptacio("Patat€_123zz") . "<br>";
+        echo decriptacio("ftu9bcgRTJCUngrAVMLsp61sp")
 
     ?>
 </body>
