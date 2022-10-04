@@ -8,10 +8,11 @@
 <body>
     <div class="container">
         <form name="calc" class="calculator" method="post">
-            <!--Creem aquest input que està hidden per anar posant-hi tots els valors
-        dels botons que anem clicant amb la funció "concatenar()"-->
+            <!--Creem aquests inputs que estan hidden per anar posant-hi tots els valors
+        dels botons que anem clicant amb la funció "concatenar() i l'últim resultat a la
+        funció ultimResultat()"-->
             <input type="hidden" readonly name="ultim_resultat" value=<?php echo ultimResultat();?>></label>
-            <input type="hidden" readonly name="hidden" value=<?php echo concatenar();?>></label>
+            <input type="hidden" readonly name="concat" value=<?php echo concatenar();?>></label>
             <input type="text" class="value" readonly name="resultat" value="<?php echo calcular();?>" />
             <span class="num"><input type ="submit" name="boto" value="("></span>
             <span class="num"><input type ="submit" name="boto" value=")"></span>
@@ -50,14 +51,14 @@
      */
     function calcular(){
         //Fem que es retorni un espai perquè les etiquetes encara no tenen valor
-        if (!isset($_POST["boto"]) || !isset($_POST["resultat"]) || !isset($_POST["hidden"])) {
+        if (!isset($_POST["boto"]) || !isset($_POST["resultat"]) || !isset($_POST["concat"])) {
             return "";
         }
 
         //Fiquem els POST a variables perquè el codi sigui més llegible
         $resultat = $_POST["resultat"];
         $boto = $_POST["boto"];
-        $hidden = $_POST["hidden"];
+        $concat = $_POST["concat"];
         $ultim_resultat = $_POST["ultim_resultat"];
 
         //Si ens intenten introduir valors fora dels de la calculadora es retorna un missatge
@@ -91,7 +92,7 @@
         }elseif($boto == "ANS"){
             if ($resultat == "" && is_numeric($ultim_resultat)) {
                 return $ultim_resultat;
-            }elseif(is_numeric($ultim_resultat) && substr($hidden, -1) != "="){
+            }elseif(is_numeric($ultim_resultat) && substr($concat, -1) != "="){
                 return $resultat . $ultim_resultat;
             }else {
                 return $resultat;
@@ -102,7 +103,7 @@
              * en el qual cas es posa en blanc la pantalla
              */
         }elseif($boto == "<<"){
-            if (substr($hidden, -1) == "=") {
+            if (substr($concat, -1) == "=") {
                 return "";
             }else {
                 return substr($resultat, 0, -1);
@@ -112,7 +113,7 @@
              * a no ser que hi hagi un operador al final
              */
         }elseif(($boto == "SIN" || $boto == "COS") 
-        && (substr($hidden, -1) != "=" && substr($hidden, -1) != "C")){
+        && (substr($concat, -1) != "=" && substr($concat, -1) != "C")){
             if (preg_match("/(\+|\-|\*|\/|\%)/" ,substr($resultat, -1))){
                 return $resultat . $boto . "(";
             }else {
@@ -122,10 +123,10 @@
              * Si hi ha un nombre i un parèntesis es posarà automàticament
              * el signe de multiplicació
              */
-        }elseif($boto == "(" && is_numeric(substr($hidden, -1))){
+        }elseif($boto == "(" && is_numeric(substr($concat, -1))){
             return $resultat . "*(";
             //Si l'últim botó apretat és "=" o "C" no concatenarem més a l'input
-        }elseif (substr($hidden, -1) == "=" || substr($hidden, -1) == "C") {
+        }elseif (substr($concat, -1) == "=" || substr($concat, -1) == "C") {
             if ($boto == "SIN" || $boto == "COS") {
                 return $boto . "(";
             }elseif($boto == "π"){
@@ -154,17 +155,17 @@
      * sinus o cosinus
      */
     function concatenar(){
-        if (!isset($_POST["boto"]) || !isset($_POST["hidden"])) {
+        if (!isset($_POST["boto"]) || !isset($_POST["concat"])) {
             return "";
         }
 
-        $hidden = $_POST["hidden"];
+        $concat = $_POST["concat"];
         $boto = $_POST["boto"];
         
-        if ($hidden == "") {
+        if ($concat == "") {
             return $boto;
         }else{
-            return $hidden . $boto;
+            return $concat . $boto;
         }
     }
 
