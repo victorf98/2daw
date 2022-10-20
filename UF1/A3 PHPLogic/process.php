@@ -1,10 +1,13 @@
 <?php
 /**
  * Comprovem si la paraula està a la llista de solucions
- * En cas contrari tornarà algún missatge d'error
+ * En cas contrari tornarà algún missatge d'error.
+ * També fem que si es passa una paraula buida no mostri cap error.
  */
     session_start();
-    if (!str_contains($_GET["paraula"], $_SESSION["lletres"][3])){
+    if ($_GET["paraula"] == null) {
+        $_SESSION["missatge_error"] = "";
+    }elseif (!str_contains($_GET["paraula"], $_SESSION["lletres"][3])){
         $_SESSION["missatge_error"] = "Falta la lletra del mig!";
     }else{
         if (!in_array($_GET["paraula"], $_SESSION["funcions_trobades"])){
@@ -18,5 +21,9 @@
             $_SESSION["missatge_error"] = "Aquesta paraula ja hi és!";
         }
     }
-    header("Location: index.php");
+    if (isset($_GET["data"])) {
+        header("Location: index.php?data=" . $_GET["data"]);
+    }else{
+        header("Location: index.php");
+    }
 ?>

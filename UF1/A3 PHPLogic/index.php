@@ -1,3 +1,74 @@
+<?php session_start();
+        /**
+         * Quan fem un POST ens redirigirà a process.php, hi passarem la paraula per POST
+         *  i comprovarem si la paraula és correcte
+         */
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (isset($_SESSION["copia_data"])) {
+                //Si hi ha una data passada per GET tindrem la variable "copia_data" i la passarem per POST
+                header("Location: process.php?paraula=" . $_POST["paraula"] . "&data=" . $_SESSION["copia_data"]);
+            }else{
+                header("Location: process.php?paraula=" . $_POST["paraula"]);
+            }      
+        }else {
+            include "joc_de_lletres.php";
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                
+                //Si no tenim cap joc de lletres en crearem un amb la data actual o amb la passada per GET
+                if (!isset($_SESSION["lletres"])){
+                    if (!isset($_GET["data"]) || $_GET["data"] == null) {
+                        $_SESSION["data"] = date("Y-m-d");
+                        $_SESSION["copia_data"] = null;
+                        $_SESSION["sol"] = 0;
+                        $_SESSION["paraules_trobades"] = 0;
+                        $_SESSION["funcions_trobades"] = array();
+                        $_SESSION["missatge_error"] = "";
+                        canviarLletres(date("Y-m-d"));
+                    }else{
+                        $_SESSION["data"] = $_GET["data"];
+                        $_SESSION["copia_data"] = $_GET["data"];
+                        $_SESSION["sol"] = 0;
+                        $_SESSION["paraules_trobades"] = 0;
+                        $_SESSION["funcions_trobades"] = array();
+                        $_SESSION["missatge_error"] = "";
+                        canviarLletres($_GET["data"]);
+                    }
+                }else{
+
+                    /**
+                     * Si ja tenim un joc de lletres però passem de tenir un GET de data 
+                     * a no tenir-lo i viceversa tornarem a fer un joc de lletres 
+                     */
+                    if((!isset($_GET["data"]) || $_GET["data"] == null) && date("Y-m-d") != $_SESSION["data"]) {
+                        $_SESSION["data"] = date("Y-m-d");
+                        $_SESSION["copia_data"] = null;
+                        $_SESSION["sol"] = 0;
+                        $_SESSION["paraules_trobades"] = 0;
+                        $_SESSION["funcions_trobades"] = array();
+                        $_SESSION["missatge_error"] = "";
+                        canviarLletres(date("Y-m-d"));
+                    }elseif(isset($_GET["data"])){
+                        if ($_GET["data"] != null && $_GET["data"] != $_SESSION["data"]) {
+                            $_SESSION["data"] = $_GET["data"];
+                            $_SESSION["copia_data"] = $_GET["data"];
+                            $_SESSION["sol"] = 0;
+                            $_SESSION["paraules_trobades"] = 0;
+                            $_SESSION["funcions_trobades"] = array();
+                            $_SESSION["missatge_error"] = "";
+                            canviarLletres($_GET["data"]);
+                        } 
+                    }   
+                }
+                
+                //Quan fem un GET de neteja netejarem les funcions trobades, treurem les sol·lucions i buidarem el missatge d'error
+                if (isset($_GET["neteja"])) {
+                    $_SESSION["funcions_trobades"] = array();
+                    $_SESSION["paraules_trobades"] = 0;
+                    $_SESSION["sol"] = 0;
+                    $_SESSION["missatge_error"] = "";
+                }
+            }
+        ?>
 <!DOCTYPE html>
 
 <html lang="ca">
@@ -8,34 +79,28 @@
     <meta name="description" content="Juga al PHPògic.">
     <link href="//fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
-    <?php
-        session_start();
-    ?>
 </head>
-<body data-joc=<?php $_SESSION["data"]?>>
+<body data-joc=<?php echo $_SESSION["data"]?>>
     <?php  
-
-        /**
-         * Quan fem un POST ens redirigirà a process.php, hi passarem la paraula per POST
-         *  i comprovarem si la paraula és correcte
-         */
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                header("Location: process.php?paraula=" . $_POST["paraula"]);
-        }else {
-            /**
-             * Quan canvia de dia posem les variables de les paraules trobades,
-             * funcions trobades i missatge d'error a 0 i passem la data actual
-             * per POST i anem a joc_de_lletres.php a fer un nou joc de lletres
-             */
-            if (!isset($_SESSION["lletres"]) || date("Y/m/d") != $_SESSION["data"]) {
-                $_SESSION["paraules_trobades"] = 0;
-                $_SESSION["funcions_trobades"] = array();
-                $_SESSION["missatge_error"] = "";
-                header("Location: joc_de_lletres.php?data=" . date("Y/m/d"));
-            }
             $_SESSION["paraules_trobades"] = count($_SESSION["funcions_trobades"]);
                 
     ?>
+    <p><?php
+    /**
+     * Imprimirem totes les sol·lucions, es mostraran si hi ha un GET de "sol" 
+     * o quan aquesta variable sigui -1. Així quan es fa el GET de "sol" es posa la
+     * variable a -1 perquè es segueixin mostrant fins que es netegi o es tingui una altra combinació
+     * de lletes
+     */
+    if (isset($_GET["sol"]) || $_SESSION["sol"] == -1) {
+                    $_SESSION["sol"] = -1;
+                    $n = 1;
+                    echo "SOLUCIONS: ";
+                    foreach ($_SESSION["funcions"] as $funcio) {
+                        echo $n . ". " . $funcio . " ";
+                        $n += 1;
+                    }
+                }?></p>
     <p><?php echo $_SESSION["carrega"] ?></p>
     <form method="post" id="myform" name="myform">
         <div class="main">
@@ -48,7 +113,7 @@
              * Si hi ha un missatge d'error fet apareixerà,
              * sino no apareix res
              */
-            if ($_SESSION["missatge_error"] != "") { ?>
+            if ($_SESSION["missatge_error"] != "" && !isset($_GET["sol"])) { ?>
                 <div class="container-notifications">
                     <p class="hide" id="message" style=""><?php echo $_SESSION["missatge_error"] ?></p>
                 </div>
