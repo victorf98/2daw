@@ -1,10 +1,10 @@
 <?php
-/**
- * Comprovem si la paraula està a la llista de solucions
- * En cas contrari tornarà algún missatge d'error.
- * També fem que si es passa una paraula buida no mostri cap error.
- */
     session_start();
+    /**
+     * Comprovem si la paraula està a la llista de solucions
+     * En cas contrari tornarà algún missatge d'error.
+     * També fem que si es passa una paraula buida no mostri cap error.
+     */
     if ($_GET["paraula"] == null) {
         $_SESSION["missatge_error"] = "";
     }elseif (!str_contains($_GET["paraula"], $_SESSION["lletres"][3])){
