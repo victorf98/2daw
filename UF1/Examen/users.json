@@ -18,5 +18,17 @@
     "hol": {
         "email": "hol@mo.ma",
         "password": "bola"
+    },
+    "vic": {
+        "email": "vic@gmail.com",
+        "password": "patata123"
+    },
+    "victr": {
+        "email": "victr@hotmail.com",
+        "password": "victr"
+    },
+    "ol": {
+        "email": "ol@ol.com",
+        "password": "pol"
     }
 }

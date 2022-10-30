@@ -1,0 +1,290 @@
+[
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 06:36:16pm",
+        "estat": "nou-usuari"
+    },
+    {
+        "ip": "::1",
+        "usuari": "victr",
+        "data": "2022-10-27 06:39:48pm",
+        "estat": "nou-usuari"
+    },
+    {
+        "ip": "::1",
+        "usuari": "ol",
+        "data": "2022-10-27 06:46:14pm",
+        "estat": "nou-usuari"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 07:36:14pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 07:37:13pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 07:39:48pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 07:39:55pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "adcs@das.com",
+        "data": "2022-10-27 07:40:46pm",
+        "estat": "usuari-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 07:45:25pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 10:58:24pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 10:59:50pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gfxb@gxb",
+        "data": "2022-10-27 11:00:24pm",
+        "estat": "usuari-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:01:09pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:02:06pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:03:37pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:05:15pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:06:56pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:07:06pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:13:15pm",
+        "estat": "creaci\u00f3-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:15:59pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:21:40pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:26:05pm",
+        "estat": "creaci\u00f3-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:29:50pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:30:28pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:36:59pm",
+        "estat": "creaci\u00f3-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "",
+        "data": "2022-10-27 11:37:08pm",
+        "estat": "nou-usuari"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:37:40pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:38:33pm",
+        "estat": "creaci\u00f3-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-27 11:38:44pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-30 07:57:55pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-30 07:58:22pm",
+        "estat": "creaci\u00f3-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:10:10pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:10:30pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vff",
+        "data": "2022-10-30 08:11:58pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:12:26pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:12:57pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:13:19pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "gdfbf  ",
+        "data": "2022-10-30 08:13:56pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vff",
+        "data": "2022-10-30 08:14:09pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic",
+        "data": "2022-10-30 08:29:00pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic@gmail.com",
+        "data": "2022-10-30 08:34:44pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic@gmail.com",
+        "data": "2022-10-30 08:35:23pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "hol@mo.ma",
+        "data": "2022-10-30 08:35:44pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "hol@mo.ma",
+        "data": "2022-10-30 08:35:52pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "hol@mo.ma",
+        "data": "2022-10-30 08:36:55pm",
+        "estat": "contrasenya-incorrecte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "hol@mo.ma",
+        "data": "2022-10-30 08:37:01pm",
+        "estat": "correcte"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic@gmail.com",
+        "data": "2022-10-30 08:38:00pm",
+        "estat": "creacio-fallida"
+    },
+    {
+        "ip": "::1",
+        "usuari": "vic@gmail.com",
+        "data": "2022-10-30 08:38:05pm",
+        "estat": "correcte"
+    }
+]

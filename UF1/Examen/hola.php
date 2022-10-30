@@ -5,7 +5,7 @@
         header("Location: index.php");
     }else {
         //Si hi ha un login guardat calculem que si porta més de 60 segons ens porta a index.php
-        if (time() - $_SESSION["hora_login"] > 60) {
+        if (time() - $_SESSION["hora_login"] >= 60) {
             header("Location: index.php");
         }
 ?>
@@ -35,7 +35,22 @@
         <form action="index.php?logout" method="post">
             <button>Tanca la sessió</button>
         </form>
+
+        <p>
+        <?php
+        /**
+         * Recorrem la variable de sessio "connexions" que conté 
+         * totes les connexions per imprimir les que s'han fet per l'usuari actual
+         */
+            foreach ($_SESSION["connexions"] as $connexio) {
+                if ($_SESSION["email"] == $connexio["usuari"]) {
+                    echo "ip: " . $connexio["ip"] . ", usuari: " . $connexio["usuari"] . ", data: " . $connexio["data"] . ", estat: " .$connexio["estat"] ."<br>";
+                }
+            }
+        ?>
+    </p>
     </div>
+    
 </div>
 </body>
 </html>
