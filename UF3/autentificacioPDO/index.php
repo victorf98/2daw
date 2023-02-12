@@ -1,106 +1,117 @@
 <?php
-
 session_start();
-
-// Redirecció per sessió activa
-if (isset($_SESSION["user"]) && time() - $_SESSION["user"]["time"] < 60) {
-    header("Location: hola.php", true, 302);
+require_once "bd_utils.php";
+//Establim la data, la del dia actual o la que es passi per GET
+if (isset($_GET["data"])) {
+    $_SESSION["data"] = date("Y-m-d", strtotime($_GET["data"]));
+} else {
+    $_SESSION["data"] = date("Y-m-d");
 }
 
+//Si s'intenta entrar abans de temps només es veurà un formulari de login pels admins
+if ($_SESSION["data"] < obtenirFase(1)["dataInici"]) {
 ?>
+    <h2>Accés administradors</h2>
+    <form action="process_login_admin.php" method="POST">
+        <input type="text" name="usuari" placeholder="Usuari">
+        <input type="password" name="contrasenya" placeholder="Contrasenya">
+        <input type="submit" value="Entra">
+    </form>
+<?php
 
-<!DOCTYPE html>
-<html lang="ca">
-<head>
-    <title>Accés</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet">
+//Si intentem entrar després de les fases ens porta directe a la pantalla de resultats
+} elseif ($_SESSION["data"] > obtenirFase(8)["dataFi"]) {
+    header("Location: resultats.php");
+} else {
+    $fase_actual = trobarFasePerData($_SESSION["data"]);
+    $_SESSION["fase"] = ["nFase" => $fase_actual["nFase"], "dataInici" => $fase_actual["dataInici"], "dataFi" => $fase_actual["dataFi"]];
 
-</head>
-<body>
-<div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="process.php" method="post">
-            <h1>Registra't</h1>
-            <span>crea un compte d'usuari</span>
-            <input type="hidden" name="method" value="signup"/>
-            <input type="text" name="name" placeholder="Nom"/>
-            <input type="email" name="email" placeholder="Correu electronic"/>
-            <input type="password" name="password" placeholder="Contrasenya"/>
-            <button>Registra't</button>
-        </form>
-    </div>
-    <div class="form-container sign-in-container">
-        <form action="process.php" method="post">
-            <h1>Inicia la sessió</h1>
-            <span>introdueix les teves credencials</span>
-            <input type="hidden" name="method" value="signin"/>
-            <input type="email" name="email" placeholder="Correu electronic"/>
-            <input type="password" name="password" placeholder="Contrasenya"/>
-            <button>Inicia la sessió</button>
-        </form>
-    </div>
-    <div class="overlay-container">
-        <div class="overlay">
-            <div class="overlay-panel overlay-left">
-                <h1>Ja tens un compte?</h1>
-                <p>Introdueix les teves dades per connectar-nos de nou</p>
-                <button class="ghost" id="signIn">Inicia la sessió</button>
-            </div>
-            <div class="overlay-panel overlay-right">
-                <h1>Primera vegada per aquí?</h1>
-                <p>Introdueix les teves dades i crea un nou compte d'usuari</p>
-                <button class="ghost" id="signUp">Registra't</button>
+    /**
+     * Si és una nova fase on encara no s'han fet els càlculs, 
+     * es fan els càlculs per obtenir els nous concursants i es creen
+     */
+    if (obtenirConcursants("fase", $_SESSION["fase"]["nFase"]) == null) {
+        crearConcursantsNovaFase(obtenirConcursantsNovaFase($_SESSION["fase"]["nFase"] - 1), $_SESSION["fase"]["nFase"]);
+    }
+?>
+    <!DOCTYPE html>
+    <html lang="ca">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Votació popular Concurs Internacional de Gossos d'Atura 2023</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div>
+            <h2>Accés administradors</h2>
+            <form action="process_login_admin.php" method="POST">
+                <input type="text" name="usuari" placeholder="Usuari">
+                <input type="password" name="contrasenya" placeholder="Contrasenya">
+                <input type="submit" value="Entra">
+            </form>
+            <br>
+            <div class="wrapper">
+                <header>Votació popular del Concurs Internacional de Gossos d'Atura 2023- FASE <span> <?php echo $_SESSION["fase"]["nFase"] ?> </span></header>
+                <p class="info"> Podeu votar fins el dia <?php echo date("d-m-Y", strtotime($_SESSION["fase"]["dataFi"])) ?></p>
+
+                <p class="warning"> <?php if (isset($_SESSION["vot_fase_" . $_SESSION["fase"]["nFase"]])) echo $_SESSION["missatge"] ?></p>
+                <div class="poll-area">
+                    <?php
+                    $concursants = obtenirConcursants("fase", $_SESSION["fase"]["nFase"]);
+                    /**
+                     * Si només hi ha 1 concursant (en cas que hi hagi menys de 9 concursants) 
+                     * es mostra aquest sense el botó per votar
+                     */
+                    if (count($concursants) == 1) {
+                    ?>
+                        <form action="process_votar.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $concursants[0]["id"] ?>">
+                            <label for="<?php echo $concursants[0]["id"] ?>" class="<?php echo $concursants[0]["id"] ?>">
+                                <span class="text" style="color: red;">Guanyador!</span>
+                                <div class="row">
+                                    <div class="column">
+                                        <div class="right">
+                                            <span class="text"><?php echo $concursants[0]["nom"] ?></span>
+                                        </div>
+                                        <img class="dog" alt="Musclo" src="img/<?php echo $concursants[0]["imatge"] ?>">
+                                    </div>
+                                </div>
+                            </label>
+                        </form>
+                        <?php
+                    } elseif (count($concursants) > 1) {
+                        foreach ($concursants as $concursant) {
+                        ?>
+                            <form action="process_votar.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $concursant["id"] ?>">
+                                <label for="<?php echo $concursant["id"] ?>" class="<?php echo $concursant["id"] ?>">
+                                    <div class="row">
+                                        <div class="column">
+                                            <div class="right">
+                                                <span class="text"><?php echo $concursant["nom"] ?></span>
+                                            </div>
+                                            <img class="dog" alt="Musclo" src="img/<?php echo $concursant["imatge"] ?>">
+                                        </div>
+                                    </div>
+                                    <input type="submit" value="Votar">
+                                </label>
+                            </form>
+                    <?php
+                        }
+                    }
+                    ?>
+                </div>
+
+                <p> Mostra els <a href="resultats.php">resultats</a> de les fases anteriors.</p>
             </div>
         </div>
-    </div>
-</div>
-<div class="container-notifications">
-    <?php
-    if (isset($_GET['error'])) {
-        $msg = match ($_GET['error']) {
-            "signin_email_error" => 'El correu no és vàlid',
-            "signin_password_error" => 'Contrasenya incorrecte',
-            "signup_exist_error" => 'El correu ja existeix',
-            "timeout" => 'La sessió ha caducat',
-            "logoff" => '',
-            default => 'S\'ha produït un error inesperat',
-        };
 
-        if ($msg) {
-            echo "<p class='hide' id='message'> $msg </p>";
-        }
-    }
-    ?>
+    </body>
 
-</div>
-</body>
-<script>
-    function clear_gets() {
-        window.history.replaceState(null, null, window.location.pathname)
-    }
-
-    function amagaError() {
-        if (document.getElementById("message"))
-            document.getElementById("message").style.opacity = "0"
-        clear_gets()
-    }
-
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
-
-    signUpButton.addEventListener('click', () => {
-        container.classList.add("right-panel-active");
-    });
-
-    signInButton.addEventListener('click', () => {
-        container.classList.remove("right-panel-active");
-    });
-
-    window.onload = () => {
-        setTimeout(amagaError, 2000)
-    }
-</script>
-</html>
+    </html>
+<?php
+}
+?>
