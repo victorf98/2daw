@@ -36,8 +36,8 @@
       "id": "2b9130d4-47a7-3546-760a-0144f6a21575",
       "producte": "Paper higiènic",
       "caducitat": "01/03/2023",
-      "data venda": "15/02/2023,  2:21:56 PM",
-      "ubicació": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
+      "data_venda": "15/02/2023,  2:21:56 PM",
+      "ubicacio": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM"
     }
@@ -62,5 +62,4 @@
       "updatedAt": "3/10/2022, 8:21:56 AM"
     }
   ]
-  
 }

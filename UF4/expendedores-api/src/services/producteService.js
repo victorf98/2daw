@@ -19,33 +19,33 @@ const getOneProducte = (producteId) => {
   }
 };
 
-const createNewWorkout = (newWorkout) => {
-  const workoutToInsert = {
-    ...newWorkout,
+const createNewProducte = (newProducte) => {
+  const producteToInsert = {
+    ...newProducte,
     id: uuid(),
-    createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    updatedAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+    createdAt: new Date().toLocaleString("es-ES", { timeZone: "UTC" }),
+    updatedAt: new Date().toLocaleString("es-ES", { timeZone: "UTC" }),
   };
   try {
-    const createdWorkout = Workout.createNewWorkout(workoutToInsert);
-    return createdWorkout;
+    const createdProducte = Producte.createNewProducte(producteToInsert);
+    return createdProducte;
   } catch (error) {
     throw error;
   }
 };
 
-const updateOneWorkout = (workoutId, changes) => {
+const updateOneProducte = (producteId, changes) => {
   try {
-    const updatedWorkout = Workout.updateOneWorkout(workoutId, changes);
-    return updatedWorkout;
+    const updatedProducte = Producte.updateOneProducte(producteId, changes);
+    return updatedProducte;
   } catch (error) {
     throw error;
   }
 };
 
-const deleteOneWorkout = (workoutId) => {
+const deleteOneProducte = (producteId) => {
   try {
-    Workout.deleteOneWorkout(workoutId);
+    Producte.deleteOneProducte(producteId);
   } catch (error) {
     throw error;
   }
@@ -54,7 +54,7 @@ const deleteOneWorkout = (workoutId) => {
 module.exports = {
   getAllProductes,
   getOneProducte,
-  createNewWorkout,
-  updateOneWorkout,
-  deleteOneWorkout,
+  createNewProducte,
+  updateOneProducte,
+  deleteOneProducte,
 };

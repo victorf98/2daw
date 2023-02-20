@@ -1,4 +1,5 @@
 const DB = require("./db.json");
+const { saveToDatabase } = require("./utils");
 
 const getAllProductes = () => {
   try {
@@ -26,7 +27,78 @@ const getOneProducte = (producteId) => {
   }
 };
 
+const createNewProducte = (newProducte) => {
+  try {
+    const isAlreadyAdded =
+      DB.producte.findIndex((producte) => producte.nom === newProducte.nom) > -1;
+
+    if (isAlreadyAdded) {
+      throw {
+        status: 400,
+        message: `Producte with the name '${newProducte.nom}' already exists`,
+      };
+    }
+
+    DB.producte.push(newProducte);
+    saveToDatabase(DB);
+
+    return newProducte;
+  } catch (error) {
+    throw { status: 500, message: error?.message || error };
+  }
+};
+
+const updateOneProducte = (producteId, changes) => {
+  try {
+
+    const indexForUpdate = DB.producte.findIndex(
+      (producte) => producte.id === producteId
+    );
+
+    if (indexForUpdate === -1) {
+      throw {
+        status: 400,
+        message: `No es pot trobar el producte amb la id '${producteId}'`,
+      };
+    }
+
+    const updatedProducte = {
+      ...DB.producte[indexForUpdate],
+      ...changes,
+      updatedAt: new Date().toLocaleString("es-ES", { timeZone: "UTC" }),
+    };
+
+    DB.producte[indexForUpdate] = updatedProducte;
+    saveToDatabase(DB);
+
+    return updatedProducte;
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
+const deleteOneProducte = (producteId) => {
+  try {
+    const indexForDeletion = DB.producte.findIndex(
+      (producte) => producte.id === producteId
+    );
+    if (indexForDeletion === -1) {
+      throw {
+        status: 400,
+        message: `No es pot trobar el producte amb la id '${producteId}'`,
+      };
+    }
+    DB.producte.splice(indexForDeletion, 1);
+    saveToDatabase(DB);
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
 module.exports = {
   getAllProductes,
-  getOneProducte
+  getOneProducte,
+  createNewProducte,
+  updateOneProducte,
+  deleteOneProducte
 };
