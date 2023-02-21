@@ -99,7 +99,7 @@ const getEstocsForProducte = (producteId, filterParams) => {
   try {
     let estocs;
     if (filterParams.disponible == "") {
-      estocs = DB.estoc.find((estoc) => estoc.producte === producteId && estoc.data_venda != "");
+      estocs = DB.estoc.filter((estoc) => estoc.producte === producteId && estoc.data_venda != "");
       if (!estocs) {
         throw {
           status: 400,

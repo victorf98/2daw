@@ -24,6 +24,13 @@
       "updatedAt": "3/10/2022, 8:21:56 AM"
     },
     {
+      "id": "123tfd7-849f-sgv75-bfc8-fdsg85687g",
+      "maquina": "61dbae02-c147-4e28-863c-db7bd402b2d6",
+      "casella": "2",
+      "createdAt": "1/25/2022, 1:15:44 PM",
+      "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
       "id": "2b9130d4-47a7-4085-800e-0144f6a46059",
       "maquina": "4a3d9aaa-608c-49a7-a004-66305ad4ab50",
       "casella": "3",
@@ -38,6 +45,24 @@
       "caducitat": "01/03/2023",
       "data_venda": "15/02/2023,  2:21:56 PM",
       "ubicacio": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
+      "createdAt": "1/25/2022, 1:15:44 PM",
+      "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
+      "id": "325gdf6-47a7-3546-654gfd-0144f6a21575",
+      "producte": "2b9130d4-47a7-4085-800e-0144f6a21575",
+      "caducitat": "01/03/2023",
+      "data_venda": "15/02/2023,  2:21:56 PM",
+      "ubicacio": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
+      "createdAt": "1/25/2022, 1:15:44 PM",
+      "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
+      "id": "2b9130d4-432-3546-760a-34546gdf56gdg5",
+      "producte": "2b9130d4-47a7-4085-800e-0144f6a21575",
+      "caducitat": "01/03/2023",
+      "data_venda": "",
+      "ubicacio": "123tfd7-849f-sgv75-bfc8-fdsg85687g",
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM"
     },

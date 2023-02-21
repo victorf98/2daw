@@ -34,7 +34,33 @@ const getOneMaquina = (req, res) => {
   }
 };
 
+const getEstocsForMaquina = (req, res) => {
+  const {
+    params: { maquinaId },
+  } = req;
+
+  if (!maquinaId) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':maquinaId' can not be empty" },
+    });
+    return;
+  }
+
+  const { disponible } = req.query;
+
+  try {
+    const estocs = maquinaService.getEstocsForMaquina(maquinaId, { disponible });
+    res.send({ status: "OK", data: estocs });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
+};
+
 module.exports = {
   getAllMaquines,
-  getOneMaquina
+  getOneMaquina,
+  getEstocsForMaquina
 };
