@@ -114,10 +114,36 @@ const deleteOneProducte = (req, res) => {
   }
 };
 
+const getEstocsForProducte = (req, res) => {
+  const {
+    params: { producteId },
+  } = req;
+
+  if (!producteId) {
+    res.status(400).send({
+      status: "FAILED",
+      data: { error: "Parameter ':producteId' can not be empty" },
+    });
+    return;
+  }
+
+  const { disponible } = req.query;
+
+  try {
+    const estocs = producteService.getEstocsForProducte(producteId, { disponible });
+    res.send({ status: "OK", data: estocs });
+  } catch (error) {
+    res
+      .status(error?.status || 500)
+      .send({ status: "FAILED", data: { error: error?.message || error } });
+  }
+};
+
 module.exports = {
   getAllProductes,
   getOneProducte,
   createNewProducte,
   updateOneProducte,
-  deleteOneProducte
+  deleteOneProducte,
+  getEstocsForProducte
 };

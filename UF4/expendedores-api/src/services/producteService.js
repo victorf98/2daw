@@ -51,10 +51,20 @@ const deleteOneProducte = (producteId) => {
   }
 };
 
+const getEstocsForProducte = (producteId, filterParams) => {
+  try {
+    const estocs = Producte.getEstocsForProducte(producteId, filterParams);
+    return estocs;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getAllProductes,
   getOneProducte,
   createNewProducte,
   updateOneProducte,
   deleteOneProducte,
+  getEstocsForProducte
 };

@@ -34,7 +34,7 @@
   "estoc": [
     {
       "id": "2b9130d4-47a7-3546-760a-0144f6a21575",
-      "producte": "Paper higiènic",
+      "producte": "2b9130d4-47a7-4085-800e-0144f6a21575",
       "caducitat": "01/03/2023",
       "data_venda": "15/02/2023,  2:21:56 PM",
       "ubicacio": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
@@ -42,7 +42,7 @@
       "updatedAt": "3/10/2022, 8:21:56 AM"
     },
     {
-      "producte": "Mandarina",
+      "producte": "991ca395-0480-44d7-90c7-8f7607f7bf9c",
       "caducitat": "25/02/2023",
       "data_venda": "",
       "ubicacio": "2b9130d4-47a7-4085-800e-0144f6a46059",
@@ -57,9 +57,18 @@
       "nom": "Paper higiènic",
       "tipus": "Paper",
       "preu": 1,
-      "categoria": "Higiene",
+      "categoria": "1a4251g5-47a7-4085-800e-0144f6a21575",
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
+      "nom": "Mandarina",
+      "tipus": "Fruita",
+      "preu": 0.5,
+      "categoria": "1a4251g5-47a7-4085-800e-89221f3f32109",
+      "id": "991ca395-0480-44d7-90c7-8f7607f7bf9c",
+      "createdAt": "21/2/2023, 22:11:17",
+      "updatedAt": "21/2/2023, 22:11:17"
     }
   ],
   "categoria": [
@@ -67,6 +76,13 @@
       "id": "1a4251g5-47a7-4085-800e-0144f6a21575",
       "nom": "Higiene",
       "iva": 18,
+      "createdAt": "1/25/2022, 1:15:44 PM",
+      "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
+      "id": "1a4251g5-47a7-4085-800e-89221f3f32109",
+      "nom": "Alimentació",
+      "iva": 10,
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM"
     }

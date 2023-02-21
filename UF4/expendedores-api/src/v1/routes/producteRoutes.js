@@ -9,5 +9,6 @@ router
   .post("/", producteController.createNewProducte)
   .patch("/:producteId", producteController.updateOneProducte)
   .delete("/:producteId", producteController.deleteOneProducte)
+  .get("/:producteId/estocs", producteController.getEstocsForProducte)
 
 module.exports = router;

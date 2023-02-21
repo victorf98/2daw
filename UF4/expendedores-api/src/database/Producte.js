@@ -95,10 +95,38 @@ const deleteOneProducte = (producteId) => {
   }
 };
 
+const getEstocsForProducte = (producteId, filterParams) => {
+  try {
+    let estocs;
+    if (filterParams.disponible == "") {
+      estocs = DB.estoc.find((estoc) => estoc.producte === producteId && estoc.data_venda != "");
+      if (!estocs) {
+        throw {
+          status: 400,
+          message: `No hi ha cap producte amb la id '${producteId}' disponible`,
+        };
+      }
+    }else{
+      estocs = DB.estoc.find((estoc) => estoc.producte === producteId);
+      if (!estocs) {
+        throw {
+          status: 400,
+          message: `No hi ha cap producte amb la id '${producteId}'`,
+        };
+      }
+    }
+
+    return estocs;
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
 module.exports = {
   getAllProductes,
   getOneProducte,
   createNewProducte,
   updateOneProducte,
-  deleteOneProducte
+  deleteOneProducte,
+  getEstocsForProducte
 };
