@@ -52,7 +52,7 @@ const getEstocsForMaquina = (maquinaId, filterParams) => {
       if (!estocs) {
         throw {
           status: 400,
-          message: `No hi ha cap producte amb la id '${maquinaId}'`,
+          message: `No hi ha cap maquina amb la id '${maquinaId}'`,
         };
       }
     }
@@ -63,8 +63,43 @@ const getEstocsForMaquina = (maquinaId, filterParams) => {
   }
 };
 
+const getCalaixosForMaquina = (maquinaId, filterParams) => {
+  try {
+    let estocs = [];
+    let calaixos = [];
+    if (filterParams.buits == "") {
+      let tots_calaixos = DB.calaixos.filter((calaix) => calaix.maquina === maquinaId);
+      tots_calaixos.forEach(calaix => {
+        let estoc = DB.estoc.filter((estoc) => estoc.ubicacio === calaix.id);
+        if (!estoc[0]) {
+          calaixos.push(calaix);
+        }
+      });
+      if (!calaixos) {
+        throw {
+          status: 400,
+          message: `No hi ha cap maquina amb la id '${maquinaId}' disponible`,
+        };
+      }
+    } else {
+      calaixos = DB.calaixos.filter((calaix) => calaix.maquina === maquinaId);
+      if (!calaixos) {
+        throw {
+          status: 400,
+          message: `No hi ha cap maquina amb la id '${maquinaId}'`,
+        };
+      }
+    }
+
+    return calaixos;
+  } catch (error) {
+    throw { status: error?.status || 500, message: error?.message || error };
+  }
+};
+
 module.exports = {
   getAllMaquines,
   getOneMaquina,
-  getEstocsForMaquina
+  getEstocsForMaquina,
+  getCalaixosForMaquina
 };

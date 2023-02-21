@@ -7,5 +7,6 @@ router
   .get("/", maquinaController.getAllMaquines)
   .get("/:maquinaId", maquinaController.getOneMaquina)
   .get("/:maquinaId/estocs", maquinaController.getEstocsForMaquina)
+  .get("/:maquinaId/calaixos", maquinaController.getCalaixosForMaquina)
 
 module.exports = router;
