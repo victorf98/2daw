@@ -1,9 +1,19 @@
 const DB = require("./db.json");
 const { saveToDatabase } = require("./utils");
 
-const getAllEstocs = () => {
+const getAllEstocs = (filterParams) => {
   try {
     let estocs = DB.estoc;
+    if (filterParams.venda) {
+      return DB.estoc.filter((e) =>
+        e.data_venda.includes(filterParams.venda)
+      );
+    }
+    if (filterParams.disponible == "") {
+      return DB.estoc.filter((e) =>
+        e.data_venda != "")
+    }
+
     return estocs;
   } catch (error) {
     throw { status: 500, message: error };
@@ -94,6 +104,7 @@ const deleteOneEstoc = (estocId) => {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
+
 
 module.exports = {
   getAllEstocs,

@@ -1,8 +1,9 @@
 const estocService = require("../services/estocService");
 
 const getAllEstocs = (req, res) => {
+  const { venda, disponible } = req.query;
   try {
-    const allEstocs = estocService.getAllEstocs();
+    const allEstocs = estocService.getAllEstocs({ venda, disponible });
     res.send({ status: "OK", data: allEstocs });
   } catch (error) {
     res

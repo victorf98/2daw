@@ -1,9 +1,9 @@
 const { v4: uuid } = require("uuid");
 const Estoc = require("../database/Estoc");
 
-const getAllEstocs = () => {
+const getAllEstocs = (filterParams) => {
   try {
-    const allEstocs = Estoc.getAllEstocs();
+    const allEstocs = Estoc.getAllEstocs(filterParams);
     return allEstocs;
   } catch (error) {
     throw error;
@@ -56,5 +56,5 @@ module.exports = {
   getOneEstoc,
   createNewEstoc,
   updateOneEstoc,
-  deleteOneEstoc,
+  deleteOneEstoc
 };

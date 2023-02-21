@@ -40,6 +40,15 @@
       "ubicacio": "12a410bc-849f-4e7e-bfc8-4ef283ee4b19",
       "createdAt": "1/25/2022, 1:15:44 PM",
       "updatedAt": "3/10/2022, 8:21:56 AM"
+    },
+    {
+      "producte": "Mandarina",
+      "caducitat": "25/02/2023",
+      "data_venda": "",
+      "ubicacio": "2b9130d4-47a7-4085-800e-0144f6a46059",
+      "id": "ff22cfa7-7887-431f-9d84-45fd29468bff",
+      "createdAt": "21/2/2023, 21:24:16",
+      "updatedAt": "21/2/2023, 21:24:17"
     }
   ],
   "producte": [
