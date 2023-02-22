@@ -101,7 +101,7 @@ router
  */
   .get("/:estocId", estocController.getOneEstoc)
 
-  /**
+/**
  * @openapi
  * /api/v1/estocs:
  *   post:

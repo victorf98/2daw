@@ -1,6 +1,37 @@
 const DB = require("./db.json");
 const { saveToDatabase } = require("./utils");
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Producte:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 2b9130d4-47a7-4085-800e-0144f6a21575
+ *         nom: 
+ *           type: string
+ *           example: Paper higiènic
+ *         tipus:
+ *           type: string
+ *           example: Paper
+ *         preu:
+ *           type: string
+ *           example: 1
+ *         categoria:
+ *           type: string
+ *           example: 1a4251g5-47a7-4085-800e-0144f6a21575
+ *         createdAt:
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         updatedAt: 
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         
+ */
+
 const getAllProductes = () => {
   try {
     let productes = DB.producte;
