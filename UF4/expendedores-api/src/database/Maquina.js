@@ -1,5 +1,30 @@
 const DB = require("./db.json");
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Maquina:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 61dbae02-c147-4e28-863c-db7bd402b2d6
+ *         municipi: 
+ *           type: string
+ *           example: Olot
+ *         adreça:
+ *           type: string
+ *           example: C/Pollancre 8
+ *         createdAt:
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         updatedAt: 
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         
+ */
+
 const getAllMaquines = () => {
   try {
     let maquines = DB.maquina;

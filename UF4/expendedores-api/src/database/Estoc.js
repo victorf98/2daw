@@ -1,6 +1,37 @@
 const DB = require("./db.json");
 const { saveToDatabase } = require("./utils");
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Estoc:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           example: 2b9130d4-47a7-3546-760a-0144f6a21575
+ *         producte: 
+ *           type: string
+ *           example: 2b9130d4-47a7-4085-800e-0144f6a21575
+ *         caducitat:
+ *           type: string
+ *           example: 01/03/2023
+ *         data_venda:
+ *           type: string
+ *           example: 05/03/2023
+ *         ubicacio:
+ *           type: string
+ *           example: 12a410bc-849f-4e7e-bfc8-4ef283ee4b19
+ *         createdAt:
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         updatedAt: 
+ *           type: string
+ *           example: 4/20/2022, 2:21:56 PM
+ *         
+ */
+
 const getAllEstocs = (filterParams) => {
   try {
     let estocs = DB.estoc;
