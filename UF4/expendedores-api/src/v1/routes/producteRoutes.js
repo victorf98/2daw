@@ -276,7 +276,7 @@ router
  * /api/v1/productes/{producteId}/estocs:
  *   get:
  *     tags:
- *       - Productes
+ *       - Estocs
  *     parameters:
  *       - in: path
  *         name: producteId
@@ -302,7 +302,7 @@ router
  *                 data:
  *                   type: array 
  *                   items: 
- *                      $ref: "#/components/schemas/Producte"
+ *                      $ref: "#/components/schemas/Estoc"
  *       5XX:
  *         description: FAILED
  *         content:

@@ -1,5 +1,6 @@
 const express = require("express");
 const maquinaController = require("../../controllers/maquinaController");
+const calaixController = require("../../controllers/calaixController");
 
 const router = express.Router();
 
@@ -96,7 +97,7 @@ router
  * /api/v1/maquines/{maquinaId}/estocs:
  *   get:
  *     tags:
- *       - Maquines
+ *       - Estocs
  *     parameters:
  *       - in: path
  *         name: maquinaId
@@ -122,7 +123,7 @@ router
  *                 data:
  *                   type: array 
  *                   items: 
- *                      $ref: "#/components/schemas/Maquina"
+ *                      $ref: "#/components/schemas/Estoc"
  *       400:
  *         description: FAILED
  *         content:
@@ -163,7 +164,7 @@ router
  * /api/v1/maquines/{maquinaId}/calaixos:
  *   get:
  *     tags:
- *       - Maquines
+ *       - Calaixos
  *     parameters:
  *       - in: path
  *         name: maquinaId
@@ -189,7 +190,7 @@ router
  *                 data:
  *                   type: array 
  *                   items: 
- *                      $ref: "#/components/schemas/Maquina"
+ *                      $ref: "#/components/schemas/Calaix"
  *       400:
  *         description: FAILED
  *         content:
@@ -223,6 +224,6 @@ router
  *                       type: string 
  *                       example: "Some error message"
  */
-  .get("/:maquinaId/calaixos", maquinaController.getCalaixosForMaquina)
+  .get("/:maquinaId/calaixos", calaixController.getCalaixosForMaquina)
 
 module.exports = router;

@@ -28,18 +28,8 @@ const getEstocsForMaquina = (maquinaId, filterParams) => {
   }
 };
 
-const getCalaixosForMaquina = (maquinaId, filterParams) => {
-  try {
-    const estocs = Maquina.getCalaixosForMaquina(maquinaId, filterParams);
-    return estocs;
-  } catch (error) {
-    throw error;
-  }
-};
-
 module.exports = {
   getAllMaquines,
   getOneMaquina,
-  getEstocsForMaquina,
-  getCalaixosForMaquina
+  getEstocsForMaquina
 };
