@@ -8,12 +8,13 @@ const client = new Client({
 });
 
 const config = require("../config.json");
+const token = require("../../../../token.json");
 
 client.on("ready", () => {
     console.log("El cliente ya esta listo");
 });
 
-client.login(config.token);
+client.login(token.token);
 
 client.on("messageCreate", async (message) => {
     if (message.author.bot || !message.guild || message.channel.type === "DM") return;
