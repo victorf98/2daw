@@ -2,23 +2,23 @@ const { Client, GatewayIntentBits, Partials, ActionRowBuilder, ButtonBuilder } =
 const { Guilds, GuildMembers, GuildMessages, MessageContent } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
 
+const trigger = "correct";
+
 const client = new Client({
     intents: [Guilds, GuildMembers, GuildMessages, MessageContent],
     partials: [User, Message, GuildMember, ThreadMember],
 });
 
 const config = require("../config.json");
-const token = require("../../../../token.json");
 
 client.on("ready", () => {
     console.log("El cliente ya esta listo");
 });
 
-client.login(token.token);
+client.login(config.token);
 
 client.on("messageCreate", async (message) => {
     if (message.author.bot || !message.guild || message.channel.type === "DM") return;
-    let trigger = config.trigger;
 
     if (!message.content.split(" ").includes(trigger)) {
         return;
