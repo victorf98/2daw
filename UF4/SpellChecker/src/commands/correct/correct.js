@@ -1,9 +1,10 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const languageToolApi = require('../../apis/LanguageTool/languageTool');
 module.exports = {
     name: 'correct',
     alias: ['corregir', 'corregeix'],
 
-    run(client, message, keyword) {
+    async run(client, message, keyword) {
         let missatge_separat = message.content.split(keyword);
         if (missatge_separat[1] == "") return;
         let missatge = missatge_separat[1].trim();
@@ -14,6 +15,7 @@ module.exports = {
                     .setLabel(missatge)
                     .setStyle(ButtonStyle.Primary)
             );
+        console.log((await languageToolApi.getCorrection(missatge)).body);
         message.reply({ content: "__" + missatge + "__", components: [button] })
 
     }
