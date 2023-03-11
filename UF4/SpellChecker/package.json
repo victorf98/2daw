@@ -16,6 +16,7 @@
     "discord.js": "^14.7.1",
     "fs": "^0.0.1-security",
     "glob": "^9.1.2",
+    "https": "^1.0.0",
     "util": "^0.12.5"
   },
   "devDependencies": {

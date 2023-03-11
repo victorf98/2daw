@@ -15,7 +15,20 @@ module.exports = {
                     .setLabel(missatge)
                     .setStyle(ButtonStyle.Primary)
             );
-        console.log((await languageToolApi.getCorrection(missatge)).body);
+
+            let response;
+            let errors;
+            
+            await languageToolApi.getCorrection(missatge).then((res) => {
+                response = res;
+                errors = res.matches;
+            })
+            errors.forEach(error => {
+                console.log(error)
+                console.log("------------------------------")
+            });
+            
+        //console.log(await languageToolApi.getCorrection(missatge));
         message.reply({ content: "__" + missatge + "__", components: [button] })
 
     }
