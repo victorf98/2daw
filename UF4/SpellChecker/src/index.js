@@ -1,6 +1,7 @@
 const { Client, GatewayIntentBits, Partials, ActionRowBuilder, ButtonBuilder, ButtonStyle, Events, Collection } = require('discord.js');
 const { Guilds, GuildMembers, GuildMessages, MessageContent } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember } = Partials;
+const corregirFrase = require('./events/corregirFrase');
 
 const client = new Client({
     intents: [Guilds, GuildMembers, GuildMessages, MessageContent],
@@ -30,6 +31,11 @@ client.on("messageCreate", async (message) => {
 });
 
 client.commands = new Collection();
+
+client.on("interactionCreate", async (interaction) => {
+    if (!interaction.isButton()) return;
+    corregirFrase.execute(interaction);
+});
 
 fs.readdirSync(__dirname + "/commands").forEach((dir) => {
     const commands = fs.readdirSync(`${__dirname}/commands/${dir}/`).filter((file) => file.endsWith(".js"));

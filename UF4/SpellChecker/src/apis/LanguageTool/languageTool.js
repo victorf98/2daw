@@ -24,24 +24,6 @@ const request = https.request(options, (res) => {
     });
 });
 
-const requestData = {
-    name: 'New User',
-    username: 'digitalocean',
-    email: 'user@digitalocean.com',
-    address: {
-        street: 'North Pole',
-        city: 'Murmansk',
-        zipcode: '12345-6789',
-    },
-    phone: '555-1212',
-    website: 'digitalocean.com',
-    company: {
-        name: 'DigitalOcean',
-        catchPhrase: 'Welcome to the developer cloud',
-        bs: 'cloud scale security'
-    }
-};
-
 function getCorrection(text) {
 
     return fetch('https://api.languagetoolplus.com/v2/check', {
