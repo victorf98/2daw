@@ -1,17 +1,32 @@
-const { ButtonInteraciton } = require('discord.js');
+const { retornarFaltes } = require("../commands/correct/correct.js");
+const correccions = require('../db/Correccions');
 
-const name = 'corregirFrase';
 
 function execute(interaction) {
-    const button = interaction.customId;
-    const faltes = interaction.message.embeds[0].fields[0].value;
-    const missatge = interaction.message.embeds[0].fields[1].value;
-    const missatge_separat = missatge.split("__");
-    const missatge_modificat = missatge_separat[0] + button + missatge_separat[1];
-    interaction.message.edit({ content: missatge_modificat, components: [] });
+    let id = interaction.customId.split("--")[0];
+    let button = interaction.customId.split("--")[1];
+    let index = interaction.customId.split("--")[2];
+    let correccio = correccions.getCorreccio(id);
+    let llargada_anterior = correccio.errors[parseInt(index)].length;
+    let llargada_nova = button.length;
+    let llargada_errors = correccio.errors.length;
+    let missatge = interaction.message.content;
+    let missatge_separat = missatge.split("__");
+    let missatge_modificat = missatge_separat[0] + button + missatge_separat[2];
+    let diferencia = llargada_nova - llargada_anterior;
+    interaction.message.delete();
+    if (index < llargada_errors - 1) {
+        retornarFaltes(id, missatge_modificat, interaction, parseInt(index) + 1, diferencia);
+    } else {
+        correccions.deleteCorreccio(id);
+        interaction.reply({ embeds: [{
+            title: "Correcció completada",
+            description: "No hi ha més errors"
+        }], content: missatge_modificat });
+    }
+
 }
 
 module.exports = {
-    name,
-    execute,
+    execute
 };

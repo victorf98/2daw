@@ -1,5 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRow, MessageButton } = require('discord.js');
 const languageToolApi = require('../../apis/LanguageTool/languageTool');
+const correccions = require('../../db/Correccions');
 
 const name = 'correct';
 const alias = ['corregir', 'corregeix'];
@@ -16,59 +17,58 @@ async function run(client, message, keyword) {
         response = res;
         errors = res.matches;
     })
-    errors.forEach(error => {
-        console.log(error)
-        console.log("------------------------------")
-    });
     if (errors.length == 0) {
         message.reply({ content: "No hi ha cap error, molt bé!", components: [] })
     } else {
-        for (let i = 0; i < errors.length; i++) {
-            retornarFaltes(errors[i], missatge, message);
-        }
+        // for (let i = 0; i < errors.length; i++) {
+            let correccio = correccions.registerCorreccio(errors);
+            let id = correccio.id;
+            retornarFaltes(id, missatge, message, 0, 0);
+        // }
     }
 }
 
-async function retornarFaltes(faltes, missatge, message) {
+async function retornarFaltes(id, missatge, message, index, diferencia) {
+    let correccio = correccions.getCorreccio(id);
     let missatge_separat = missatge.split("");
-    missatge_separat.splice(faltes.offset, 0, "__");
-    missatge_separat.splice(faltes.offset + faltes.length + 1, 0, "__");
+    missatge_separat.splice(correccio.errors[index].offset + diferencia, 0, "__");
+    missatge_separat.splice(correccio.errors[index].offset + correccio.errors[index].length + 1 + diferencia, 0, "__");
     let missatge_modificat = arrayToString(missatge_separat);
     let botons;
-    switch (faltes.replacements.length) {
+    switch (correccio.errors[index].replacements.length) {
         case 1:
             botons = new ActionRowBuilder().setComponents(
                 new ButtonBuilder()
-                    .setCustomId('correccio')
-                    .setLabel(faltes.replacements[0].value)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[0].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[0].value)
                     .setStyle(ButtonStyle.Primary)
             )
             break;
         case 2:
             botons = new ActionRowBuilder().setComponents(
                 new ButtonBuilder()
-                    .setCustomId('correccio-1')
-                    .setLabel(faltes.replacements[0].value)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[0].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[0].value)
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId('correccio-2')
-                    .setLabel(faltes.replacements[1].value)
-                    .setStyle(ButtonStyle.Secondary)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[1].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[1].value)
+                    .setStyle(ButtonStyle.Primary)
             )
             break;
         default:
             botons = new ActionRowBuilder().setComponents(
                 new ButtonBuilder()
-                    .setCustomId('correccio-1')
-                    .setLabel(faltes.replacements[0].value)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[0].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[0].value)
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId('correccio-2')
-                    .setLabel(faltes.replacements[1].value)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[1].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[1].value)
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
-                    .setCustomId('correccio-3')
-                    .setLabel(faltes.replacements[2].value)
+                    .setCustomId(correccio.id + "--" + correccio.errors[index].replacements[2].value + "--" + index)
+                    .setLabel(correccio.errors[index].replacements[2].value)
                     .setStyle(ButtonStyle.Primary)
             )
             break;
@@ -77,7 +77,7 @@ async function retornarFaltes(faltes, missatge, message) {
     await message.reply({
         embeds: [{
             title: "Error",
-            description: faltes.message
+            description: correccio.errors[index].message
         }],
         content: missatge_modificat, components: [botons]
     })
@@ -94,5 +94,6 @@ function arrayToString(array) {
 module.exports = {
     run,
     name,
-    alias
+    alias,
+    retornarFaltes
 }
