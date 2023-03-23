@@ -12,7 +12,6 @@ module.exports = async (client, message) => {
         cmd.alias.forEach((alias) => {
             keywords.push(alias);
         });
-        console.log(message);
         let keyword = hiHaKeywords(message.content.split(" "), keywords);
         if (keyword) {
             try {

@@ -7,7 +7,7 @@ const getCorreccio = (correccioId) => {
     const correccio = DB.correccions.find((correccio) => correccio.id === correccioId);
 
     if (!correccio) {
-      console.log(`Can't find maquina with the id '${correccioId}'`)
+      console.log(`No es pot trobal la correcció amb la id '${correccioId}'`)
     }
     return correccio;
   } catch (error) {
@@ -37,7 +37,7 @@ const deleteCorreccio = (correccioId) => {
     );
     DB.correccions.splice(indexForDeletion, 1);
     saveToDatabase(DB);
-    console.log(`Correccio with the id '${correccioId}' has been deleted`);
+    console.log(`Correcció amb la id '${correccioId}' s'ha borrat correctament`);
   } catch (error) {
     console.log(error);
   }
