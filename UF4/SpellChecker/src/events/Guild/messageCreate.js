@@ -28,12 +28,17 @@ module.exports = async (client, message) => {
 }
 
 function hiHaKeywords(missatge, keywords) {
-    for (let i = 0; i < missatge.length; i++) {
-        for (let j = 0; j < keywords.length; j++) {
-            if (missatge[i] === keywords[j]) {
-                return keywords[j];
+    try {
+        for (let i = 0; i < missatge.length; i++) {
+            for (let j = 0; j < keywords.length; j++) {
+                if (missatge[i] === keywords[j]) {
+                    return keywords[j];
+                }
             }
         }
+        return false;
+    } catch (error) {
+        console.log(error);
     }
-    return false;
+
 }

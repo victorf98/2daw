@@ -5,7 +5,7 @@ module.exports = {
 
     async execute(client, interaction) {
         try {
-            interaction.reply("Com fer servir l'aplicació:\n" +
+            interaction.reply("**Com fer servir l'aplicació:**\n" +
             "1. Escriu la frase que vols corregir\n"
             + "2. Aquesta frase haurà de contenir la paraula 'corregir' en català, castellà o anglès:\n"
             + "     - ENG: 'correct', 'correction'\n"

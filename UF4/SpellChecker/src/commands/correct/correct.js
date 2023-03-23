@@ -1,5 +1,5 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageActionRow, MessageButton } = require('discord.js');
-const languageToolApi = require('../../apis/LanguageTool/languageTool');
+const languageToolApi = require('../../Apis/LanguageTool/languageTool');
 const correccions = require('../../db/Correccions');
 
 const name = 'correct';
