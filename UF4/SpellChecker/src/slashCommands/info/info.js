@@ -14,7 +14,7 @@ module.exports = {
             + "3. El bot llegirà tot el contingut qui hi hagi després de la paraula 'corregir' o algun dels seus derivats\n"
             + "4. Espera a que l'aplicació et digui quins errors hi ha i quines són les correccions\n"
             + "5. Fes click al botó que conté la correcció que vols fer servir\n"
-            + "6. Repeteix els passos 3 i 4 fins que no hi hagi més errors\n")
+            + "6. Repeteix els passos 4 i 5 fins que no hi hagi més errors\n")
         } catch (error) {
             console.log(error);
         }
